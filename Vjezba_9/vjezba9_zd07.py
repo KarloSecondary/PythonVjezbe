@@ -1,21 +1,29 @@
-#vjezba9_zd7 Karlo Hasnek 20/12/2022
-from re import sub
+#vjezba9_zd7 Karlo Hasnek 22/12/2022
 
 f = open('./ulaz7.txt', 'r')
 f2 = open('./izlaz7.txt', 'w')
+cont_l = []
+cont_s = ''
 
 content = f.read()
-cont = ''
 
-result = sub(r'[^0-9]', '', content)
-
-print(result)
 for i in range(len(content)):
-    for j in range(len(content)):
-        if content[i].isnumeric():
-            continue
+    if content[i] == '0':
+        continue
+    elif content[i] == '.':
+        cont_s += content[i]
+    elif content[i].isnumeric():
+        cont_s += content[i]
+    elif cont_s != '':
+        cont_l.append(float(cont_s))
+        cont_s = ''
 
-print(cont)
+cont_l.append(float(cont_s))
+cont_l.sort()
+for i in cont_l:
+    f2.write(f'{int(i)} ')
+
+print(cont_l)
 
 f.close()
 f2.close()
